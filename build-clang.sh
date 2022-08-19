@@ -27,11 +27,11 @@ cmake -S "$CORE_DIR" -B "$core_build" \
 -DCMAKE_INSTALL_PREFIX="$core_install" \
 -DKokkos_ENABLE_SERIAL=ON \
 -DCMAKE_BUILD_TYPE=Debug \
-| tee "$core_config_log"
+| tee "$core_config_log" 2>&1
 
 
 cd $core_build
-make -j`nproc` install | tee "$core_build_log"
+make -j`nproc` install | tee "$core_build_log" 2>&1
 cd -
 
 cmake -S "$KERN_DIR" -B "$kern_build" \
@@ -48,11 +48,11 @@ cmake -S "$KERN_DIR" -B "$kern_build" \
 -DKokkosKernels_INST_LAYOUTRIGHT:BOOL=ON \
 -DKokkosKernels_INST_OFFSET_INT=ON \
 -DKokkosKernels_INST_OFFSET_SIZE_T=ON \
-| tee "$kern_config_log"
+| tee "$kern_config_log" 2>&1
 
 cd "$kern_build"
 date > "$kern_build_log"
-make -j`nproc` | tee -a "$kern_build_log"
+make -j`nproc` | tee -a "$kern_build_log" 2>&1
 date >> "$kern_build_log"
 cd -
 
