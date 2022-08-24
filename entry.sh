@@ -1,6 +1,12 @@
 set -eu -o pipefail
+set -x
 
 date
+
+# copied this from the login environment
+export NIX_PATH=nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos:nixos-config=/etc/nixos/configuration.nix:/nix/var/nix/profiles/per-user/root/channels
+
+export PATH="$HOME/.nix-profile/bin:$PATH"
 
 SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
@@ -24,6 +30,8 @@ else
   cd -
 fi
 
+echo updated core
+
 if [[ -d "$KERN_DIR" ]]; then
   cd "$KERN_DIR"
   git checkout develop
@@ -36,12 +44,10 @@ else
   cd -
 fi
 
+echo updated kernels
 
-
-set -x
 mkdir -p "$BUILD_ROOT"
 mkdir -p "$LOG_DIR"
-set +x
 
 set +e # don't exit on error
 BUILD_NAME=gcc8 nix-shell --run $SCRIPTPATH/build-gcc.sh $SCRIPTPATH/gcc8.nix
