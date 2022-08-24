@@ -49,9 +49,11 @@ cmake -S "$KERN_DIR" -B "$kern_build" \
 | tee "$kern_config_log" 2>&1
 
 cd "$kern_build"
-date > "$kern_build_log"
+startDate=`date`
+echo "====START==== $startDate" > "$kern_build_log"
 make -j`nproc` | tee -a "$kern_build_log" 2>&1
-date >> "$kern_build_log"
+endDate=`date`
+echo "====END==== $endDate" >> "$kern_build_log"
 cd -
 
 rm -rf "$core_build"
