@@ -23,6 +23,7 @@ mkdir -p "$kern_build"
 cd $workdir
 
 cmake -S "$CORE_DIR" -B "$core_build" \
+-DCMAKE_BUILD_TYPE=Release \
 -DCMAKE_INSTALL_PREFIX="$core_install" \
 -DKokkos_ENABLE_SERIAL=ON \
 -DCMAKE_BUILD_TYPE=Debug \
@@ -34,6 +35,7 @@ make -j`nproc` install | tee "$core_build_log" 2>&1
 cd -
 
 cmake -S "$KERN_DIR" -B "$kern_build" \
+-DCMAKE_BUILD_TYPE=Release \
 -DKokkos_DIR="$core_install/lib64/cmake/Kokkos" \
 -DCMAKE_CXX_FLAGS="-Wall -Wshadow -pedantic -Wsign-compare -Wtype-limits -Wignored-qualifiers -Wempty-body -Wuninitialized" \
 -DKokkosKernels_ENABLE_TESTS=ON \
