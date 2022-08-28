@@ -4,7 +4,7 @@
 Requires cron, mutt, git, zip
 
 ```bash
-nix-env -iA nixos.mutt nixos.zip
+nix-env -iA nixos.mutt nixos.zip nixos.python310
 ```
 
 ## Mutt
