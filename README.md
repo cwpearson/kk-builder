@@ -7,6 +7,12 @@ Requires cron, mutt, git, zip
 nix-env -iA nixos.mutt nixos.zip nixos.python310
 ```
 
+## Cron
+
+```cron
+0 19 * * *	/home/pearson/kk-builder/entry.sh > /home/pearson/kk-builder/entry.log 2>&1
+```
+
 ## Mutt
 
 example `.muttrc`
